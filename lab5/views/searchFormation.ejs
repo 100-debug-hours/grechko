@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Єдиний реєстр громадських формацій</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+        body {
+            font-family: 'Open Sans';
+            overflow-y: scroll;
+            overflow-x: hidden;
+        }
+* {
+  box-sizing: border-box;
+}
+
+
+#myInput {
+  background-image: url('/css/searchicon.png');
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+
+#myTable {
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid #ddd;
+  font-size: 18px;
+}
+
+#myTable th, #myTable td {
+  text-align: left;
+  padding: 12px;
+}
+
+#myTable tr {
+  border-bottom: 1px solid #ddd;
+}
+
+#myTable tr.header, #myTable tr:hover {
+  background-color: #f1f1f1;
+}
+
+.center {margin:auto;}
+
+a:hover {
+    text-decoration: none;
+}
+.m-auto {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.container {
+    height: 100%;
+}
+html, body {
+    height: 100%;
+}
+
+</style>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div style="display: flex;">
+    <h2>Єдиний реєстр громадських формацій</h2>
+    <% if (!user) { %>
+        <a style="margin-left: auto; margin-right: 25px; margin-top: 2px;" href="/login">
+            <button type="button" class="btn btn-outline-secondary mx-auto">Увійти</button>
+        </a>
+    <% } %>
+</div>
+
+
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Шукати за назвою...">
+
+<table id="myTable">
+  <tr class="header">
+    <th style="width:20%;">Назва</th>
+    <th style="width:20%;">Дата реєстрації</th>
+    <th style="width:20%;">Тип Формування</th>
+    <th style="width:15%;">Адреса</th>
+    <th style="width:10%;">Статус</th>
+    <th style="width:10%;">Реєстраційний Номер</th>
+    <% if (user) { %>
+        <th style="width:5%;">Редагувати</th>
+        <th style="width:5%;">Видалити</th>
+    <% } %>
+  </tr>
+  <% for (let formation of formations){%>
+    <tr>
+        <td><%=formation.name%></td>
+        <td><%=formation.registration_date%></td>
+        <td><%=formation.type%></td>
+        <td><%=formation.residence_address%></td>
+        <td><%=formation.status%></td>
+        <td><%=formation.registration_certificate_id%></td>
+        <% if (user) { %>
+            <td>
+                <form action="/editFormation/<%= formation.id %>" method="GET">
+                    <input type="submit" class="btn btn-outline-primary" value="✎" class="borderline"/>
+                </form>
+            </td>
+            <td>
+                <form action="/delFormation" method="POST">
+                    <input style="display: none;" name="id" id="id" value='<%=  formation.id %>'></hidden>
+                    <input type="submit" class="btn btn-outline-danger" value="×" class="borderline"/>
+                </form>
+            </td>
+        <% } %>
+    </tr>
+<%}%>
+</table>
+
+<% if (user) { %>
+    <div class="">
+        <div class="row">
+            <div class="m-auto">
+                <div class="mx-auto center">
+                        <div class="mx-auto">
+                            <a href="/addFormation" >
+                                <button type="button" style="margin-top: 20px;" class="btn btn-outline-primary mx-auto" >Додати запис</button>
+                            </a>
+                            <% if (user && user.type == 0) { %>
+                                <a href="/users" >
+                                    <button type="button" style="margin-top: 20px;" class="btn btn-outline-primary mx-auto" >Усі користувачі</button>
+                                </a>
+                            <% } %>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="position: absolute; right: 30px; bottom: 5px;">
+        <p class="text-muted">
+            Ви - <%=user.name%> |
+            <a style="text-decoration: none!important;" href="/logout">Вийти</a>
+        </p>
+    </div>
+<% } %>
+
+
+
+<script src="../javascripts/filter.js"></script>
+
+</body>
+</html>
