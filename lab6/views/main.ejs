@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  
+    <head>
+        <meta charset="utf-8">
+        <title>Єдиний реєстр нотаріусів - вхід</title>
+        <link rel="stylesheet" href="stylesheets/animate.css" type="text/css" />
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <style>
+            .center {margin:auto;}
+
+            a:hover {
+                text-decoration: none;
+            }
+            .m-auto {
+                margin-top: auto;
+                margin-bottom: auto;        
+            }
+
+            .container {
+                height: 100%;
+            }
+            html, body {
+                height: 100%;
+            }
+
+        </style>
+    </head>
+
+    <body>
+        <% if (user) { %>
+            <a style=" padding-right:6vw;"><%= user.username %>!</a> <br/>
+            <a href='/logout'>Logout</a>
+            <% if (user.isAdmin == true) { %>
+                <a class="links" href='/users'>Users</a>
+            <% } %>
+            
+        <% } else { %>
+            <div class="container">
+                <div class="row h-100">
+                    <div class="m-auto">
+                        <div class="mx-auto center">
+                                <a href="/register">
+                                    <button type="button" class="btn btn-outline-primary mx-auto" >Зареєструватися</button>
+                                </a>
+                                <a href="/login">
+                                    <button type="button" class="btn btn-outline-secondary mx-auto">Увійти</button>
+                                </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <% } %>
+    </body> 
+</html>

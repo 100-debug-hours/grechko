@@ -75,6 +75,9 @@ html, body {
 
 <div style="display: flex;">
     <h2>Користувачі</h2>
+
+    <a style="margin-left: auto; margin-right: 15px!important; margin-bottom: 5px; margin-top: 2px;" href="/user/<%=user.id%>" class="btn btn-outline-primary mx-auto" >Профіль</a>
+    <a style="margin-left: 0!important; margin-right: 15px!important; margin-bottom: 5px; margin-top: 2px;" href="/formation" class="btn btn-outline-primary mx-auto" >Громадські формації</a>
 </div>
 
 
@@ -88,15 +91,16 @@ html, body {
     <th style="width:20%;">Ім'я</th>
     <th style="width:20%;">Прізвище</th>
     <th style="width:20%;">Деактивований</th>
+    <th style="width:20%;">Профіль</th>
   </tr>
   <% for (let user of users){%>
     <tr>
-
         <td><%=user.email%></td>
         <td><%=user.type%></td>
         <td><%=user.name%></td>
         <td><%=user.surname%></td>
         <td><%=user.disabled%></td>
+        <td> <a href="/user/<%=user.id%>">профіль</a> </td>
     </tr>
 <%}%>
 </table>
@@ -107,8 +111,8 @@ html, body {
             <div class="m-auto">
                 <div class="mx-auto center">
                         <div class="mx-auto">
-                            <a href="/addFormation" >
-                                <button type="button" style="margin-top: 20px;" class="btn btn-outline-primary mx-auto" >Додати запис</button>
+                            <a href="/registerRegistrator" >
+                                <button type="button" style="margin-top: 20px;" class="btn btn-outline-primary mx-auto" >Додати реєстратора</button>
                             </a>
                         </div>
                 </div>

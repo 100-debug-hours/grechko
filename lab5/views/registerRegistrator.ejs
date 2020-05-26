@@ -12,35 +12,44 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="../stylesheets/authorise.css" type="text/css" />
+
+  <style>
+    label {
+      margin-bottom: 0px;
+    }
+
+    input,select,textarea {
+      margin-bottom: 15px;
+    }
+  </style>
 </head>
 
 <body class="text-center" style="">
-    <form class="form-signin" action='/register' method='POST' enctype="multipart/form-data">
+    <form class="form-signin" action='/registerRegistrator' method='POST' enctype="multipart/form-data">
       <h1 class="h3 mb-3 font-weight-normal">Реєстрація</h1>
-      <label class="sr-only">Емейл</label>
+      <label>Емейл</label>
       <input name="email" type="text" class="form-control" placeholder="Емейл" required="">
 
-      <label for="inputPassword" class="sr-only">Пароль</label>
+      <label for="inputPassword">Пароль</label>
       <input type="password" name="password" class="form-control" placeholder="Пароль" required="">
 
-      <label class="sr-only">Ім'я</label>
+      <label>Ім'я</label>
       <input name="name" type="text" class="form-control" placeholder="Ім'я" required="">
 
-      <label class="sr-only">Прізвище</label>
+      <label>Прізвище</label>
       <input name="surname" type="text" class="form-control" placeholder="Прізвище" required="">
 
-      <label class="sr-only">Адреса</label>
+      <label>Адреса</label>
       <input name="address" type="text" class="form-control" placeholder="Адреса" required="">
 
-      <label class="sr-only">Номер Паспорту</label>
+      <label>Номер Паспорту</label>
       <input name="passport_id" type="text" class="form-control" placeholder="Номер Паспорту" required="">
 
-      <label class="sr-only">ІНН</label>
+      <label>ІНН</label>
       <input name="taxes_card_id" type="text" class="form-control" placeholder="ІНН" required="">
 
       <input type="file"  style="display:none; float: right; margin-right:-9%;" name = "avatar"><br><br>
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Зареєструватися</button>
-      <p class="mt-5 mb-3 text-muted"><a href="/login">Увійти</a> © 2020</p>
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Зареєструвати реєстратора</button>
     </form>
 </body>
 </html>

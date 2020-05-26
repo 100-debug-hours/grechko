@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  
+<head>
+  <meta charset="utf-8">
+  <title> Оновити запис </title>
+  <link rel="stylesheet" href="../stylesheets/animate.css" type="text/css" />
+  <link rel="stylesheet" href="../stylesheets/authorise.css" type="text/css" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="../stylesheets/authorise.css" type="text/css" />
+</head>
+
+<body class="text-center" style="">
+    <form class="form-signin" action="/updateNotarius" method="POST" autocomplete="off">
+      <h1 class="h3 mb-3 font-weight-normal">Оновити запис</h1>
+      <label class="sr-only">ПІБ</label>
+      <input name = "fullname" pattern="^([а-яА-Я0-9]+|[а-яА-Я0-9]+\s{1}[а-яА-Я0-9]{1,}|[а-яА-Я0-9]+\s{1}[а-яА-Я0-9]{3,}\s{1}[а-яА-Я0-9]{1,})$" title="Введіть ПІБ." id = "fullname" value="<%=  fullname %>" onchange="resetDefaultInput(0)" onclick="resetInput(0)" id="address"class="form-control" placeholder="ПІБ" required="true" autofocus="">
+      <label class="sr-only">Адреса</label>
+      <input name = "address" value="<%=  address %>" onchange="resetDefaultInput(1)" onclick="resetInput(1)" id="address"  class="form-control" type="text" placeholder="Адреса" required="true">
+      <label class="sr-only">Телефон</label>
+      <input name = "telephone" id = "telephone" pattern="[\+]380[\(]\d{2}[\)]\d{3}[\-]\d{2}[\-]\d{2}" title="Подайте телефон у вигляді: +380(xx)xxx-xx-xx." value="<%=  telephone %>" onchange="resetDefaultInput(2)" onclick="resetInput(2)" id="address" class="form-control" placeholder="Телефон" required="true" autofocus="">
+      <label class="sr-only">Індекс</label>
+      <input name = "index" pattern="\d{5}" title="Індекс повинен складатися із п\'яти цифр." id = "index" value="<%=  index %>" onchange="resetDefaultInput(3)" onclick="resetInput(3)" id="address" class="form-control" placeholder="Індекс" required="true" autofocus="">
+      <label class="sr-only">Статус</label>
+      <input name = "status" id = "status" value="<%=  status %>" onchange="resetDefaultInput(4)" onclick="resetInput(4)" id="address" class="form-control" placeholder="Статус" required="true" autofocus="">
+      <label class="sr-only">Номер свідоцтва</label>
+      <input name = "registration_code" id = "registration_code" onchange="resetDefaultInput(5)" onclick="resetInput(5)" id="address" value="<%=  registration_code %>" class="form-control" placeholder="Номер свідоцтва" required="true" autofocus="">
+      <label class="sr-only">Регіон</label>
+      <input style="display: none;" name="id" id="id" value="<%= _id %>">
+      <input name = "region" id="region" value="<%=  region %>" onchange="resetDefaultInput(6)" onclick="resetInput(6)" id="address" class="form-control" placeholder="Регіон" required="true" autofocus="" style="margin-bottom: 20px;">
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Оновити</button>
+      <p class="mt-5 mb-3 text-muted">© 2019</p>
+    </form>
+    <script>
+
+      var lib = [
+        "fullname",
+        "address",
+        "telephone",
+        "index",
+        "status",
+        "registration_code",
+        "region"
+      ]
+
+      function resetInput(id){
+        var reset = document.getElementById(lib[id]);
+        if(reset.value === reset.defaultValue){
+          reset.value= "";
+        }
+      }
+
+
+    </script>
+</body>
+</html>

@@ -29,7 +29,7 @@ export const router = Router()
 
         formations.forEach(formation => {
             formation.type = types[formation.type];
-            formation.registration_date = formation.registration_date.toString().slice(0, 24) as any;
+            formation.registration_date = formation.registration_date.toString().slice(0, 24) as any ;
         });
         res.render('searchFormation', {
             formations,
@@ -48,6 +48,8 @@ export const router = Router()
     .post('/addFormation', verify(adminOrRegistrator), async (req, res, next) => {
         let formation = new PubFormation();
         Object.assign(formation, req.body);
+        console.log("adding formation ...");
+        console.table(formation);
 
         const user = req.user as User;
 
@@ -60,11 +62,24 @@ export const router = Router()
     .post('/editFormation/:id', async (req, res) => {
         let formation = new PubFormation();
         Object.assign(formation, req.body);
+        console.log("editing formation ...");
+        console.table(formation);
+
         formation.id = req.params.id;
 
         const updated = await db.updatePubFormation(formation);
         console.log(updated);
         res.redirect(`/formation`)
+    })
+    .get('/deleteFormation/:id', async (req, res) => {
+        await db.deletePubFormation(req.params.id);
+        res.redirect(`/formation`)
+    })
+    .get('/particularFormation/:id', async (req, res) => {
+        const formation = await db.getPubFormationById(req.params.id);
+        if (!formation) return res.render("/notfound");
+
+        res.render('particularFormation', { user: req.user, types, ...formation });
     })
     .get('/editFormation/:id', async (req, res) => {
         const formation = await db.getPubFormationById(req.params.id);

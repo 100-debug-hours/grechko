@@ -13,47 +13,68 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="../stylesheets/authorise.css" type="text/css" />
+
+  <style>
+    label {
+      margin-bottom: 0px;
+    }
+
+    input,select,textarea {
+      margin-bottom: 15px;
+    }
+  </style>
 </head>
 
 <body class="text-center">
     <form class="form-signin" action='/addFormation' method='POST' autocomplete="off">
       <h1 class="h3 mb-3 font-weight-normal">Додати формування</h1>
-      <label class="sr-only">Тип</label>
-      <select name = "type" class="form-control" required="true">
+      <label>Тип</label>
+      <select id='select-control' name = "type" class="form-control" required="true">
         <% for (let [key, value] of Object.entries(types)) { %>
           <option value="<%= key %>"><%= value %></option>
         <% } %>
       </select>
-      <label class="sr-only">Найменування формування</label>
+      <label>Найменування формування</label>
       <input name = "name" class="form-control" placeholder="Найменування формування" required="true" autofocus="">
-      <label class="sr-only">Керівний Склад</label>
+      <label>Керівний Склад</label>
       <textarea name="executives" class="form-control" placeholder="Керівний Склад" required="true" rows="3"></textarea>
-      <label class="sr-only">Адреса</label>
+      <label>Засновники</label>
+      <textarea name="foundators" class="form-control" placeholder="Засновники" required="true" rows="3"></textarea>
+      <label>Адреса</label>
       <input name = "residence_address" class="form-control" placeholder="Адреса" required="true">
-      <label class="sr-only">Телефон</label>
+      <label>Телефон</label>
       <input name = "phone_number" class="form-control" placeholder="Телефон" required="true" autofocus="">
-      <label class="sr-only">Мета діяльності</label>
+      <label >Мета діяльності</label>
       <input name = "activity_purpose" class="form-control" placeholder="Мета діяльності" required="true" autofocus="">
-      <label class="sr-only">Статус</label>
+      <label>Статус</label>
       <input name = "status" class="form-control" placeholder="Статус" autofocus="">
 
-      <label class="sr-only">Рєстраційний Номер</label>
-      <input name = "registration_certificate_id" class="form-control" placeholder="Рєстраційний Номер" required="true" autofocus="">
-
-      <label class="sr-only">Вид Структурного Осередку</label>
+      <label>Вид Структурного Осередку</label>
       <input name = "structural_cell_type" class="form-control" placeholder="Вид Структурного Осередку" autofocus="">
 
-      <label class="sr-only">Охоплюєма територія</label>
+      <label>Охоплюєма територія</label>
       <input name = "affected_teritory" class="form-control" placeholder="Охоплюєма територія" autofocus="">
 
-      <label class="sr-only">Кількість Учсаників Формування</label>
+      <label>Кількість Учасників Формування</label>
       <input name = "members_amount" class="form-control" placeholder="Кількість Учсаників Формування" required="true" autofocus="">
 
-      <label class="sr-only">Відомості Про Третейських Суддів</label>
-      <input name = "arbitrages" class="form-control" placeholder="Відомості Про Третейських Суддів" autofocus="">
+      <div id="arbitrages" style="width: 100%; display: flex; flex-direction: column; align-items: flex-start;" hidden>
+        <label >Відомості Про Третейських Суддів</label>
+        <input name = "arbitrages" class="form-control" placeholder="Відомості Про Третейських Суддів" autofocus="">
+      </div>
 
       <button class="btn btn-lg btn-primary btn-block" type="submit">Додати</button>
       <p class="mt-5 mb-3 text-muted">© 2020</p>
     </form>
+
+    <script>
+      document.getElementById('select-control').addEventListener('change', (event) => {
+        if(event.target.value === 'arbitrationCourt') {
+          document.getElementById('arbitrages').hidden = false;
+        } else {
+          document.getElementById('arbitrages').hidden = true;
+        }
+      })
+    </script>
 </body>
 </html>

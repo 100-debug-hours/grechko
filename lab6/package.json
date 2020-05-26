@@ -1,0 +1,32 @@
+{
+  "name": "application-name",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node ./app.js",
+    "test": "../public/javascripts/tests.js"
+  },
+  "dependencies": {
+    "bluebird": "^3.5.1",
+    "body-parser": "~1.0.0",
+    "chai": "^4.2.0",
+    "cookie-parser": "^1.0.1",
+    "crypto": "^1.0.1",
+    "debug": "~0.7.4",
+    "ejs": "^2.5.7",
+    "es6-promise": "^4.1.1",
+    "express": "^4.15.5",
+    "express-session": "^1.15.6",
+    "fs-promise": "^2.0.3",
+    "jade": "~1.3.0",
+    "mocha": "^6.1.4",
+    "mongodb": "^2.2.33",
+    "mongoose": "^4.12.6",
+    "mongoose-paginate": "^5.0.3",
+    "morgan": "~1.0.0",
+    "multer": "^1.3.0",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "static-favicon": "~1.0.0"
+  }
+}

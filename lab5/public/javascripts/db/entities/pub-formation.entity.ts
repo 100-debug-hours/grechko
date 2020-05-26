@@ -65,18 +65,8 @@ export class PubFormation {
     @Column({ default: false })
     disabled!: boolean; // анулювання реєстрації
 
-
-
-
-
-
-
-
-
-
-
-
-
+    @StringColumn({ nullable: true })
+    registration_athority?: null | string;
 
     @StringColumn({ nullable: true })
     disabling_reason?: null | string; // причина анулювання реєстрації
@@ -84,8 +74,11 @@ export class PubFormation {
     @StringColumn({ nullable: true })
     status?: null | string; // статус формування
 
-    @StringColumn({ nullable: true })
+    @StringColumn({ nullable: true, default: () => ("" + Math.floor(Math.random() * Number.MAX_SAFE_INTEGER)).padStart(10, "0") })
     registration_certificate_id?: null | string; // реєстраційний номер у відповідному
+
+    @StringColumn({ nullable: true })
+    foundators?: null | string;
 
     @StringColumn({ nullable: true })
     structural_cell_type?: null | string; // вид структурного осередку

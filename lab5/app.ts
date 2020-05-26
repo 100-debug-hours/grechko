@@ -43,7 +43,7 @@ process.stdout.write = (...args: any) => {
     logs += String(args[0]).replace(
         /[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g,
         ''
-    ) + '<br>';
+    ) + '<br><br>'; // logs go brrr ахахахахахсука
     return write.apply(process.stdout, args);
 };
 

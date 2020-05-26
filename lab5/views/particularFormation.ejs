@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title> Відомості про формування </title>
+  <link rel="stylesheet" href="../stylesheets/animate.css" type="text/css" />
+  <link rel="stylesheet" href="../stylesheets/authorise.css" type="text/css" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="../stylesheets/authorise.css" type="text/css" />
+
+  <style>
+    label {
+      margin-bottom: 0px;
+    }
+
+    input,select,textarea {
+      margin-bottom: 15px;
+    }
+  </style>
+</head>
+
+
+<body class="text-center">
+  <div class="form-signin">
+    <h1 class="h3 mb-3 font-weight-normal">Відомості про формування</h1>
+
+    <label >Рєстраційний Номер</label>
+    <input name = "registration_certificate_id" disabled value="<%=  registration_certificate_id %>" class="form-control" placeholder="Рєстраційний Номер" required="true" autofocus="">
+
+    <label>Тип</label>
+    <select disabled id='select-control' name = "type" class="form-control" required="true">
+      <% for (let [key, value] of Object.entries(types)) { %>
+        <option <% if (type == key) { %> selected <% } %> value="<%= key %>"><%= value %></option>
+      <% } %>
+    </select>
+
+    <label>Найменування формування</label>
+    <input disabled name = "name" value="<%=  name %>" class="form-control" placeholder="Найменування формування" required="true" autofocus="">
+
+    <label>Керівний Склад</label>
+    <textarea  disabled name="executives" class="form-control" placeholder="Керівний Склад" required="true" rows="3"><%= executives %></textarea>
+
+    <label>Засновники</label>
+    <textarea disabled name="foundators" class="form-control" placeholder="Засновники" required="true" rows="3"><%= foundators %></textarea>
+
+    <label>Адреса</label>
+    <input disabled name = "residence_address" value="<%=  residence_address %>" class="form-control" placeholder="Адреса" required="true">
+
+    <label>Телефон</label>
+    <input disabled name = "phone_number" value="<%=  phone_number %>" class="form-control" placeholder="Телефон" required="true" autofocus="">
+
+    <label>Мета діяльності</label>
+    <input disabled name = "activity_purpose" value="<%=  activity_purpose %>" class="form-control" placeholder="Мета діяльності" required="true" autofocus="">
+
+    <label>Статус</label>
+    <input disabled name = "status" value="<%=  status %>" class="form-control" placeholder="Статус" autofocus="">
+
+
+    <label>Вид Структурного Осередку</label>
+    <input disabled name = "structural_cell_type" value="<%=  structural_cell_type %>" class="form-control" placeholder="Вид Структурного Осередку" autofocus="">
+
+    <label>Охоплюєма територія</label>
+    <input disabled name = "affected_teritory" value="<%=  affected_teritory %>" class="form-control" placeholder="Охоплюєма територія" autofocus="">
+
+    <label>Кількість Учсаників Формування</label>
+    <input disabled name = "members_amount" value="<%=  members_amount %>" class="form-control" placeholder="Кількість Учсаників Формування" required="true" autofocus="">
+
+    <div id="arbitrages" style="width: 100%; display: flex; flex-direction: column; align-items: flex-start;" <% if (!arbitrages) { %> hidden <% } %> >
+      <label >Відомості Про Третейських Суддів</label>
+      <input disabled name = "arbitrages" value="<%=  arbitrages %>" class="form-control" placeholder="Відомості Про Третейських Суддів" autofocus="">
+    </div>
+
+    <% if (user) { %>
+        <button id="print-button" class="btn btn-lg btn-primary btn-block">Роздрукувати</button>
+    <% } %>
+
+</div>
+  <script>
+
+    document.getElementById('print-button').addEventListener('click', () => {
+        const allInputs = document.querySelectorAll('input');
+        for(let i = 0; i < allInputs.length; i++) {
+            const input = allInputs[i];
+            input.style.border = 'none';
+        }
+
+        const allSelects = document.querySelectorAll('select');
+        for(let i = 0; i < allSelects.length; i++) {
+            const select = allSelects[i];
+            select.style.border = 'none';
+            select.style['-moz-appearance'] = 'none';
+            select.style['-webkit-appearance'] = 'none';
+        }
+
+        const allTextareas = document.querySelectorAll('textarea');
+        for(let i = 0; i < allTextareas.length; i++) {
+            const textarea = allTextareas[i];
+            textarea.style.border = 'none';
+        }
+
+        document.getElementById('print-button').style.display = "none";
+
+        window.print();
+
+        document.location.reload(true);
+    })
+  </script>
+</body>
+</html>

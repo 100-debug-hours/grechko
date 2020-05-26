@@ -6,6 +6,9 @@ import passport from "passport";
 import Container from "typedi";
 import { DbService } from "../public/javascripts/db/db.service";
 
+// тут был Аркадий
+// Аркаша это любовь!
+
 export const serverSalt = "1'grechko postav ashku ili eshku";
 const db = Container.get(DbService);
 
@@ -15,6 +18,7 @@ export function sha512(password: string, salt) {
     const value = hash.digest('hex');
     return { salt, passwordHash: value };
 };
+
 
 export const router = Router()
     .get('/logout', verify(), (req, res, next) => {
@@ -47,14 +51,14 @@ export const router = Router()
         next();
     }, passport.authenticate('local', {
         successRedirect: '/formation',
-        failureRedirect: '/wrongdata'
+        failureRedirect: '/login'
     }));
+
 
 
 export function verify(roles?: UserRole[]) {
     return (req, res, next) => {
         console.log("Verifying", req.user);
-
         if (!req.user) return res.redirect('/login');
         if (req.user.disabled) return res.redirect('/login');
         if (!roles) return next();
