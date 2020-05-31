@@ -25,7 +25,7 @@
 </head>
 
 <body class="text-center" style="">
-    <form class="form-signin" action='/registerRegistrator' method='POST' enctype="multipart/form-data">
+    <form class="form-signin" action='/registerRegistrator' method='POST' enctype="multipart/form-data" onsubmit="onSubmit(event)">
       <h1 class="h3 mb-3 font-weight-normal">Реєстрація</h1>
       <label>Емейл</label>
       <input name="email" type="text" class="form-control" placeholder="Емейл" required="">
@@ -51,5 +51,13 @@
       <input type="file"  style="display:none; float: right; margin-right:-9%;" name = "avatar"><br><br>
       <button class="btn btn-lg btn-primary btn-block" type="submit">Зареєструвати реєстратора</button>
     </form>
+
+  <script>
+    function onSubmit(event) {
+        if (!confirm("Пiдтвердiть додавання новго реєстратора")) {
+            event.preventDefault();
+        }
+    }
+  </script>
 </body>
 </html>

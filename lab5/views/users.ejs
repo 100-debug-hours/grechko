@@ -76,7 +76,9 @@ html, body {
 <div style="display: flex;">
     <h2>Користувачі</h2>
 
-    <a style="margin-left: auto; margin-right: 15px!important; margin-bottom: 5px; margin-top: 2px;" href="/user/<%=user.id%>" class="btn btn-outline-primary mx-auto" >Профіль</a>
+    <a style="margin-left: auto; margin-right: 15px!important; margin-bottom: 5px; margin-top: 2px;" href="/user/<%=user.id%>" class="btn btn-outline-primary mx-auto" >
+        Профіль (<%= user.name%>)
+    </a>
     <a style="margin-left: 0!important; margin-right: 15px!important; margin-bottom: 5px; margin-top: 2px;" href="/formation" class="btn btn-outline-primary mx-auto" >Громадські формації</a>
 </div>
 

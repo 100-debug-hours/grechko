@@ -31,6 +31,8 @@ import { User } from './user.entity';
 // members_amount
 // arbitrages
 
+
+
 @Entity()
 export class PubFormation {
     @PrimaryGeneratedColumn("uuid") id!: string;
@@ -46,6 +48,12 @@ export class PubFormation {
 
     @CreateDateColumn()
     registration_date!: Date;//timestamp not null default now(), -- дата реєстрації (легалізації)
+
+    @Column()
+    registration_paper_date!: Date;
+
+    @Column()
+    registration_evidence_date!: Date;
 
     @StringColumn()
     name!: string; // повне найменування формування
@@ -66,7 +74,7 @@ export class PubFormation {
     disabled!: boolean; // анулювання реєстрації
 
     @StringColumn({ nullable: true })
-    registration_athority?: null | string;
+    registration_authority?: null | string;
 
     @StringColumn({ nullable: true })
     disabling_reason?: null | string; // причина анулювання реєстрації
@@ -74,8 +82,8 @@ export class PubFormation {
     @StringColumn({ nullable: true })
     status?: null | string; // статус формування
 
-    @StringColumn({ nullable: true, default: () => ("" + Math.floor(Math.random() * Number.MAX_SAFE_INTEGER)).padStart(10, "0") })
-    registration_certificate_id?: null | string; // реєстраційний номер у відповідному
+    @StringColumn({ nullable: true, generated: "rowid"})
+    registration_certificate_id!: number; // реєстраційний номер у відповідному
 
     @StringColumn({ nullable: true })
     foundators?: null | string;
@@ -91,4 +99,6 @@ export class PubFormation {
 
     @StringColumn({ nullable: true })
     arbitrages?: null | string; // відомості про третейських суддів
+
+
 }

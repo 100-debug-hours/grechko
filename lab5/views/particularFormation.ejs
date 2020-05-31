@@ -46,11 +46,18 @@
     <label>Керівний Склад</label>
     <textarea  disabled name="executives" class="form-control" placeholder="Керівний Склад" required="true" rows="3"><%= executives %></textarea>
 
-    <label>Засновники</label>
-    <textarea disabled name="foundators" class="form-control" placeholder="Засновники" required="true" rows="3"><%= foundators %></textarea>
 
     <label>Адреса</label>
     <input disabled name = "residence_address" value="<%=  residence_address %>" class="form-control" placeholder="Адреса" required="true">
+
+    <label>Дата реєстрації</label>
+    <input disabled name = "registration_date" value="<%=  registration_date %>" class="form-control" placeholder="Дата реєстрації" required="true">
+
+    <label>Дата реєстрації у паперовому реєстрі</label>
+    <input disabled name = "registration_date" value="<%= registration_paper_date %>" class="form-control" placeholder="Дата реєстрації" required="true">
+
+    <label>Дата видачі свідоцтва про реєстрацію</label>
+    <input disabled name = "registration_date" value="<%=  registration_evidence_date %>" class="form-control" placeholder="Дата реєстрації" required="true">
 
     <label>Телефон</label>
     <input disabled name = "phone_number" value="<%=  phone_number %>" class="form-control" placeholder="Телефон" required="true" autofocus="">
@@ -58,9 +65,21 @@
     <label>Мета діяльності</label>
     <input disabled name = "activity_purpose" value="<%=  activity_purpose %>" class="form-control" placeholder="Мета діяльності" required="true" autofocus="">
 
-    <label>Статус</label>
-    <input disabled name = "status" value="<%=  status %>" class="form-control" placeholder="Статус" autofocus="">
+    <% if (user) { %>
+      <label>Статус</label>
+      <input disabled name = "status" value="<%=  status %>" class="form-control" placeholder="Статус" autofocus="">
 
+      <div id="foundators" style="width: 100%; display: flex; flex-direction: column; align-items: flex-start;" <% if (!foundators) { %> hidden <% } %> >
+        <label>Засновники</label>
+        <textarea disabled name="foundators" class="form-control" placeholder="Засновники" required="true" rows="3"><%= foundators %></textarea>
+      </div>
+
+      <label>Реєструвальний орган</label>
+      <input disabled name = "registration_authority" value="<%=  registration_authority %>" class="form-control" placeholder="Реєструвальний орган" autofocus="">
+
+      <label>Ім'я реєстратора</label>
+      <input disabled name = "registrator_name" value="<%=  registrator.name %>" class="form-control" placeholder="Ім'я реєстратора" autofocus="">
+    <% } %>
 
     <label>Вид Структурного Осередку</label>
     <input disabled name = "structural_cell_type" value="<%=  structural_cell_type %>" class="form-control" placeholder="Вид Структурного Осередку" autofocus="">

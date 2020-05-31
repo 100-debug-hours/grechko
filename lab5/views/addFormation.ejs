@@ -26,7 +26,7 @@
 </head>
 
 <body class="text-center">
-    <form class="form-signin" action='/addFormation' method='POST' autocomplete="off">
+    <form class="form-signin" action='/addFormation' method='POST' autocomplete="off" onsubmit="onSubmit(event)">
       <h1 class="h3 mb-3 font-weight-normal">Додати формування</h1>
       <label>Тип</label>
       <select id='select-control' name = "type" class="form-control" required="true">
@@ -38,8 +38,12 @@
       <input name = "name" class="form-control" placeholder="Найменування формування" required="true" autofocus="">
       <label>Керівний Склад</label>
       <textarea name="executives" class="form-control" placeholder="Керівний Склад" required="true" rows="3"></textarea>
-      <label>Засновники</label>
-      <textarea name="foundators" class="form-control" placeholder="Засновники" required="true" rows="3"></textarea>
+
+      <div id="foundators" style="width: 100%; display: flex; flex-direction: column; align-items: flex-start;" hidden>
+        <label>Засновники</label>
+        <textarea name="foundators" class="form-control" placeholder="Засновники" rows="3"></textarea>
+      </div>
+
       <label>Адреса</label>
       <input name = "residence_address" class="form-control" placeholder="Адреса" required="true">
       <label>Телефон</label>
@@ -48,6 +52,9 @@
       <input name = "activity_purpose" class="form-control" placeholder="Мета діяльності" required="true" autofocus="">
       <label>Статус</label>
       <input name = "status" class="form-control" placeholder="Статус" autofocus="">
+
+      <label>Реєструвальний орган</label>
+      <input name = "registration_authority" class="form-control" placeholder="Реєструвальний орган" required="true"  autofocus="">
 
       <label>Вид Структурного Осередку</label>
       <input name = "structural_cell_type" class="form-control" placeholder="Вид Структурного Осередку" autofocus="">
@@ -68,11 +75,23 @@
     </form>
 
     <script>
+      function onSubmit(event) {
+        if (!confirm("Пiдтвердiть додавання нового формування")) {
+          event.preventDefault();
+        }
+      }
+
       document.getElementById('select-control').addEventListener('change', (event) => {
         if(event.target.value === 'arbitrationCourt') {
           document.getElementById('arbitrages').hidden = false;
         } else {
           document.getElementById('arbitrages').hidden = true;
+        }
+
+        if(event.target.value !== 'politicalParty') {
+          document.getElementById('foundators').hidden = false;
+        } else {
+          document.getElementById('foundators').hidden = true;
         }
       })
     </script>

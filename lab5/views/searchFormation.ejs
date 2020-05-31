@@ -74,8 +74,13 @@ html, body {
 
 <div style="display: flex;">
     <h2>Єдиний реєстр громадських формацій</h2>
+    <% if (user) { %>
+        <a style="margin-left: auto; margin-right: 15px!important; margin-bottom: 5px; margin-top: 2px;" href="/user/<%= user.id%>" class="btn btn-outline-primary mx-auto">
+            Профiль (<%=user.name%>)
+        </a>
+    <% } %>
     <% if (user && user.type == 0) { %>
-        <a style="margin-left: auto; margin-right: 15px!important; margin-bottom: 5px; margin-top: 2px;" href="/users" class="btn btn-outline-primary mx-auto" >Користувачі</a>
+        <a style="margin-left: 0!important; margin-right: 15px!important; margin-bottom: 5px; margin-top: 2px;" href="/users" class="btn btn-outline-primary mx-auto" >Користувачі</a>
         <a style="margin-left: 0!important; margin-right: 15px!important; margin-bottom: 5px; margin-top: 2px;" href="/logs" class="btn btn-outline-primary mx-auto" >Логи</a>
     <% } %>
     <% if (!user) { %>
@@ -96,7 +101,7 @@ html, body {
     <th style="width:15%;">Адреса</th>
     <th style="width:10%;">Статус</th>
     <th style="width:10%;">Реєстраційний Номер</th>
-    <% if (user) { %>
+    <% if (user && !user.disabled) { %>
         <th style="width:5%;">Редагувати</th>
         <th style="width:5%;">Видалити</th>
     <% } %>
@@ -116,7 +121,7 @@ html, body {
                 </form>
             </td>
             <td>
-                <form action="/deleteFormation/<%= formation.id %>" method="GET">
+                <form action="/deleteFormation/<%= formation.id %>" method="GET" onsubmit="onSubmit(event)">
                     <input type="submit" class="btn btn-outline-danger" value="×" class="borderline"/>
                 </form>
             </td>
@@ -125,21 +130,25 @@ html, body {
 <%}%>
 </table>
 
-<% if (user) { %>
+<% if (user && !user.disabled) { %>
     <div class="">
-        <div class="row">
-            <div class="m-auto">
-                <div class="mx-auto center">
-                        <div class="mx-auto">
-                            <a href="/addFormation" >
-                                <button type="button" style="margin-top: 20px;" class="btn btn-outline-primary mx-auto" >Додати запис</button>
-                            </a>
-                        </div>
-                </div>
-            </div>
-        </div>
+    <div class="row">
+    <div class="m-auto">
+    <div class="mx-auto center">
+    <div class="mx-auto">
+        <a href="/addFormation" >
+            <button type="button" style="margin-top: 20px;" class="btn btn-outline-primary mx-auto" >
+                Додати запис
+            </button>
+        </a>
+    </div>
+    </div>
+    </div>
+    </div>
     </div>
 
+<% } %>
+<% if (user) { %>
     <div style="position: absolute; right: 30px; bottom: 5px;">
         <p class="text-muted">
             Ви - <%=user.name%> |
@@ -151,6 +160,14 @@ html, body {
 
 
 <script src="../javascripts/filter.js"></script>
+
+<script>
+    function onSubmit(event) {
+        if (!confirm("Пiдтвердiть видалення формування")) {
+            event.preventDefault();
+        }
+    }
+</script>
 
 </body>
 </html>

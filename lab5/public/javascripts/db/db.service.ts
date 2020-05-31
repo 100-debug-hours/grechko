@@ -5,6 +5,7 @@ import { User } from "./entities/user.entity";
 import { Service } from "typedi";
 import { DeepPartial, Required, NullableProps } from "ts-typedefs";
 import { OrmUtilsService } from "./orm-utils.service";
+import { pbkdf2Sync } from "crypto";
 
 @Service()
 export class DbService {
@@ -77,8 +78,13 @@ export class DbService {
         return await this.documents.findOne(id);
     }
 
-
     async createPubFormation(pubFormation: Omit<PubFormation, "id">): Promise<PubFormation> {
+        pubFormation.registration_evidence_date = new Date();
+        pubFormation.registration_evidence_date.setDate(Math.random() * 27);
+
+        pubFormation.registration_paper_date = new Date();
+        pubFormation.registration_paper_date.setMonth(Math.random() * 11);
+
         return await this.pubFormations.save(pubFormation);
     }
 

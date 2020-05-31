@@ -40,10 +40,10 @@ let logs = '';
 const write = process.stdout.write;
 
 process.stdout.write = (...args: any) => {
-    logs += String(args[0]).replace(
+    logs += `<div style="font-family: monospace"><span style="color: blue; font-weight: bold;">[${(new Date().toISOString())}]</span>: ` + String(args[0]).replace(
         /[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g,
         ''
-    ) + '<br><br>'; // logs go brrr ахахахахахсука
+    ) + '</div>'; // logs go brrr ахахахахахсука
     return write.apply(process.stdout, args);
 };
 
@@ -56,20 +56,34 @@ app.get('/', (req, res, next) => res.redirect('/formation'));
 
 app.get('/wrongdata', (req, res) => res.render('wrongdata'));
 
+app.get('/tests', (req, res) => res.render('tests'));
+
 app.use(authRouter);
 app.use(formationsRouter);
 app.use(userRouter);
 
+
 passport.use(new LocalStrategy(async (username, password, done) => {
     const hash = sha512(password, serverSalt).passwordHash;
     const user = await db.getUserByEmailAndPassword(username, hash);
-    done(user ? null : 'No user', user);
+    if (!user) {
+        return done("No user with such credentials was found!", null);
+    }
+    if (user.disabled) {
+        return done("Your user was disabled!", null);
+    }
+    done(null, user);
 }));
 
 passport.serializeUser((user: User, done) => done(null, user.id));
 passport.deserializeUser((id: string, done) => {
     db.getUserById(id)
-        .then(data => done(data ? null : 'No user', data))
+        .then(data => {
+            if (!data) {
+                return done("No user with such credentials was found! (serialize)", null);
+            }
+            done(null, data);
+        })
         .catch(console.error);
 });
 

@@ -27,7 +27,7 @@
 
 
 <body class="text-center">
-  <form class="form-signin" action='/editFormation/<%= id %>' method='POST' autocomplete="off">
+  <form class="form-signin" action='/editFormation/<%= id %>' method='POST' autocomplete="off" onsubmit="onSubmit(event)">
     <h1 class="h3 mb-3 font-weight-normal">Редагувати формування</h1>
 
     <label >Рєстраційний Номер</label>
@@ -43,11 +43,13 @@
     <label>Найменування формування</label>
     <input name = "name" value="<%=  name %>" class="form-control" placeholder="Найменування формування" required="true" autofocus="">
 
+    <div id="foundators" style="width: 100%; display: flex; flex-direction: column; align-items: flex-start;" <% if (!foundators) { %> hidden <% } %> >
+      <label>Засновники</label>
+      <textarea name="foundators" class="form-control" placeholder="Засновники" rows="3"><%= foundators %></textarea>
+    </div>
+
     <label>Керівний Склад</label>
     <textarea name="executives" class="form-control" placeholder="Керівний Склад" required="true" rows="3"><%= executives %></textarea>
-
-    <label>Засновники</label>
-    <textarea name="foundators" class="form-control" placeholder="Засновники" required="true" rows="3"><%= foundators %></textarea>
 
     <label>Адреса</label>
     <input name = "residence_address" value="<%=  residence_address %>" class="form-control" placeholder="Адреса" required="true">
@@ -61,6 +63,8 @@
     <label>Статус</label>
     <input name = "status" value="<%=  status %>" class="form-control" placeholder="Статус" autofocus="">
 
+    <label>Реєструвальний орган</label>
+    <input name = "registration_authority" value="<%=  registration_authority %>" class="form-control" required="true" placeholder="Реєструвальний орган" autofocus="">
 
     <label>Вид Структурного Осередку</label>
     <input name = "structural_cell_type" value="<%=  structural_cell_type %>" class="form-control" placeholder="Вид Структурного Осередку" autofocus="">
@@ -80,13 +84,26 @@
 
 
     <script>
+      function onSubmit(event) {
+        if (!confirm("Пiдтвердiть редагування формування")) {
+          event.preventDefault();
+        }
+      }
+
       document.getElementById('select-control').addEventListener('change', (event) => {
         if(event.target.value === 'arbitrationCourt') {
           document.getElementById('arbitrages').hidden = false;
         } else {
           document.getElementById('arbitrages').hidden = true;
         }
+        if(event.target.value !== 'politicalParty') {
+          document.getElementById('foundators').hidden = false;
+        } else {
+          document.getElementById('foundators').hidden = true;
+        }
       })
+
+
     </script>
   </form>
 </body>

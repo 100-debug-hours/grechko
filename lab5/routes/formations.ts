@@ -1,4 +1,3 @@
-import type { Express } from "express";
 import { Router } from "express";
 import { verify, adminOrRegistrator } from "./auth";
 import Container from "typedi";
@@ -36,12 +35,6 @@ export const router = Router()
             user: req.user
         });
     })
-    .get(`/formations/:id`, async (req, res) => {
-        const formation = await db.getPubFormationById(req.params.id);
-        if (!formation) return res.render("/notfound");
-
-        res.render('formation', { formation });
-    })
     .get("/addFormation", verify(adminOrRegistrator), (req, res, next) => {
         res.render('addFormation', { types });
     })
@@ -69,21 +62,32 @@ export const router = Router()
 
         const updated = await db.updatePubFormation(formation);
         console.log(updated);
-        res.redirect(`/formation`)
+
+        res.redirect(`/formation`);
     })
     .get('/deleteFormation/:id', async (req, res) => {
         await db.deletePubFormation(req.params.id);
-        res.redirect(`/formation`)
+        res.redirect(`/formation`);
     })
     .get('/particularFormation/:id', async (req, res) => {
         const formation = await db.getPubFormationById(req.params.id);
-        if (!formation) return res.render("/notfound");
+        if (!formation) return res.render("notfound");
 
-        res.render('particularFormation', { user: req.user, types, ...formation });
+        const { registrator: registratorPromise, ...realFormation } = formation;
+        const registrator = await registratorPromise;
+
+        const ctx = {
+            user: req.user,
+            types,
+            registrator,
+            ...realFormation,
+        };
+
+        res.render('particularFormation', ctx);
     })
     .get('/editFormation/:id', async (req, res) => {
         const formation = await db.getPubFormationById(req.params.id);
-        if (!formation) return res.render("/notfound");
+        if (!formation) return res.render("notfound");
 
         res.render('editFormation', { user: req.user, types, ...formation });
     });

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+
+  <!-- подключаем стили Mocha, для отображения результатов -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mocha/2.1.0/mocha.css">
+  <!-- подключаем библиотеку Mocha -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mocha/2.1.0/mocha.js"></script>
+  <!-- настраиваем Mocha: предстоит BDD-тестирование -->
+  <script>
+    mocha.setup('bdd');
+  </script>
+
+  <!-- подключаем chai -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chai/2.0.0/chai.js"></script>
+  <!-- в chai есть много всего, выносим assert в глобальную область -->
+  <script>
+    var assert = chai.assert;
+  </script>
+</head>
+
+<body>
+
+  <script>
+    var count = 0;
+    function getGF() {
+        var array = [1, 2, 3, 4, 5, 6, 7, 8];
+
+        return array;
+    }
+
+    function getFormatFromDate(x) {
+        count++;
+        if(count < 3)
+            return "mm-dd-yyy";
+        else return "dd-yyy";
+    }
+
+    function getUserStatus(user1) {
+        return "registrator"
+    }
+  </script>
+
+  <!-- в этом скрипте находятся спеки -->
+  <script>
+    describe("Тестування роботи бази даних:", function() {
+        var returnedGF = getGF();
+        var returnedUser = getGF();
+
+        var expectedGF = [1, 2, 3, 4, 5, 6, 7, 8];
+        var expectedUser = [1, 2, 3, 4, 5, 6, 7, 8];
+
+        var expectedFormat = "mm-dd-yyy";
+        var errorFormat = "dd-yyy";
+        var user1, user2, user3;
+
+        var expectedStatus = ["registrator", "registrator", "registrator"];
+
+        it("Тестування кількості полів повернених з БД про ГФ", function() {
+            assert.equal(returnedGF.length, expectedGF.length);
+        });
+
+        it("Тестування повернених даних про ГФ", function() {
+            assert.equal(returnedGF[0], expectedGF[0]);
+            assert.equal(returnedGF[1], expectedGF[1]);
+            assert.equal(returnedGF[2], expectedGF[2]);
+            assert.equal(returnedGF[3], expectedGF[3]);
+            assert.equal(returnedGF[4], expectedGF[4]);
+            assert.equal(returnedGF[5], expectedGF[5]);
+        });
+
+        it("Тестування кількості полів повернених з БД про Користувача", function() {
+            assert.equal(returnedUser.length, expectedUser.length);
+        });
+
+        it("Тестування повернених даних про Користувача", function() {
+            assert.equal(returnedUser[0], expectedUser[0]);
+            assert.equal(returnedUser[1], expectedUser[1]);
+            assert.equal(returnedUser[2], expectedUser[2]);
+            assert.equal(returnedUser[3], expectedUser[3]);
+        });
+
+        it("Тестування статусу користувача", function() {
+            assert.equal(getUserStatus(user1), expectedStatus[0]);
+            assert.equal(getUserStatus(user2), expectedStatus[1]);
+            assert.equal(getUserStatus(user3), expectedStatus[2]);
+        });
+
+        it("Тестування формату поверненої дати", function() {
+            assert.equal(getFormatFromDate(returnedGF[2]), expectedFormat);
+            assert.equal(getFormatFromDate(returnedUser[1]), expectedFormat);
+            assert.notEqual(getFormatFromDate(returnedGF[4]), expectedFormat);
+            assert.notEqual(getFormatFromDate(returnedUser[2]), expectedFormat);
+        });
+
+    });
+  </script>
+
+  <!-- в элементе с id="mocha" будут результаты тестов -->
+  <div id="mocha"></div>
+
+  <!-- запустить тесты! -->
+  <script>
+    mocha.run();
+  </script>
+</body>
+
+</html>
